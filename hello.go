@@ -11,6 +11,7 @@ func main(){
   fmt.Println("Hello, World!")
   fmt.Println("My name is " + firstName + " " + lastName)
   fmt.Println("I am " + IntToStr(age))
+  fmt.Println("I think i like my project")
 }
 
 func IntToStr(i int) string {
