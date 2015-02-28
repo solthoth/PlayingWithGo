@@ -20,7 +20,7 @@ func main(){
   fmt.Println("I am " + IntToStr(age))
   fmt.Println("and I too, like tacos and burritos ")
   fmt.Println("but I also enjoy piña coladas and long walks on the beach.")
-  }
+}
 func IntToStr(i int) string {
   return strconv.FormatInt(int64(i),10)
 }
