@@ -5,6 +5,7 @@ import(
   "io/ioutil"
   "os"
   //"bufio"
+  "github.com/solthoth/DGo"
   )
 
 func check(e error) {
@@ -48,6 +49,16 @@ func ReadLine(f *os.File) string {
   return buffer
 }
 
+func ReadLn(f *os.File, value *string){
+  var buffer string = ""
+  buff := ""
+  for ; buff != "\n"; {
+    buff = ReadBuffer(f,1)
+    buffer = buffer + buff
+  }
+  *value = buffer
+}
+
 func main() {
   var
     sFile string
@@ -56,7 +67,7 @@ func main() {
   file := ReadFile(sFile)
   fmt.Print(file)
   fmt.Println("---------------------------")
-
+ /*
   fmt.Println("--- Reading a few bytes ---")
   fIn, err := os.Open(sFile)
   check(err)
@@ -73,4 +84,17 @@ func main() {
   fmt.Print(ReadLine(fIn))
   fIn.Close()
   fmt.Println("---------------------------")
+
+  fmt.Println("------ Reading lines 2-----")
+  fIn, err = os.Open(sFile)
+  check(err)
+  var s string
+  ReadLn(fIn,&s)
+  fmt.Print(s)
+  fIn.Close()
+  fmt.Println("---------------------------")
+*/
+  var fIn os.File
+  DGo.AssignFile(&fIn,sFile)
+  DGo.CloseFile(&fIn)
 }
