@@ -96,5 +96,7 @@ func main() {
 */
   var fIn os.File
   DGo.AssignFile(&fIn,sFile)
+  DGo.Reset(&fIn)
+
   DGo.CloseFile(&fIn)
 }
