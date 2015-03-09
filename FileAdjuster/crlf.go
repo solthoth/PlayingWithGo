@@ -5,8 +5,12 @@ import(
   "flag"
   "os"
   "strings"
+  "bufio"
+  "runtime"
 )
 
+var
+  sCrLf string
 func ParamStr(i int) string {
   if (i>=len(os.Args)) || (i<0) {
     return ""
@@ -24,7 +28,7 @@ func ReadBuffer(f *os.File, count int) string {
 func main() {
   flag.Parse()
   sFile := ParamStr(1)
-  fmt.Println(sFile)
+  fmt.Println("Input file: "+sFile)
   if (strings.Trim(sFile," ")==""){
     sFile = "crlf"
   }
@@ -33,6 +37,32 @@ func main() {
   if (errIn == nil) || (errOut == nil){}
   defer fOut.Close();
   defer fIn.Close();
+  fReader := bufio.NewReader(fIn)
+  buffer := make([]byte,512)
+  fmt.Print("Parsing file")
+  var err error
+  var bytes int
+  for {
+    bytes, err = fReader.Read(buffer)
+    //fmt.Println(bytes)
+    if bytes > 0 {
+      fmt.Print(".")
+      //fmt.Print(string(buffer))
+      fOut.WriteString(string(buffer)+sCrLf)
+      //break
+    }
+    if (err != nil){
+      break//done working
+    }
+  }
+  fmt.Println("Done!")
+  fmt.Println("Output file: "+sFile+".out")
+}
 
-
+func init(){
+  if runtime.GOOS == "windows" {
+    sCrLf = "\r\n"
+  } else {
+    sCrLf = "\n"
+  }
 }
