@@ -19,12 +19,6 @@ func ParamStr(i int) string {
   }
 }
 
-func ReadBuffer(f *os.File, count int) string {
-  buffer := make([]byte, count)
-  f.Read(buffer)
-  return string(buffer)
-}
-
 func main() {
   flag.Parse()
   sFile := ParamStr(1)
